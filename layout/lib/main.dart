@@ -1,134 +1,275 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const Weather());
+  runApp(const App());
 }
 
-class Weather extends StatelessWidget {
-  const Weather({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Weather',
-            style: TextStyle(color: Colors.black54),
+          backgroundColor: Colors.red,
+          appBar: AppBar(
+            centerTitle: true,
+            elevation: 0.0,
+            backgroundColor: Colors.red,
+            title: const Text(
+              'Weather Forecast',
+              style: TextStyle(fontSize: 18, color: Colors.white),
+            ),
           ),
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          leading: const IconButton(
-            icon: Icon(Icons.menu, color: Colors.black54),
-            onPressed: null,
-          ),
-          actions: const [
-            IconButton(
-                icon: Icon(Icons.settings, color: Colors.black54),
-                onPressed: null)
-          ],
-        ),
-        body: _buildBody(),
-      ),
+          body: _buildBody()),
     );
   }
 }
 
 Widget _buildBody() {
   return SingleChildScrollView(
-    child: Column(
+    child: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          _textField(),
+          _title(),
+          _subtitle(),
+          _temperature(),
+          _moreInfo(),
+          _weatherForecast(),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget _textField() {
+  return const Padding(
+    padding: EdgeInsets.only(bottom: 10),
+    child: TextField(
+      decoration: InputDecoration(
+        labelText: 'Enter City Name',
+        labelStyle: TextStyle(
+            fontSize: 16, color: Colors.white, fontWeight: FontWeight.w300),
+        icon: Icon(Icons.search, color: Colors.white),
+        enabledBorder: InputBorder.none,
+        focusedBorder: InputBorder.none,
+      ),
+      cursorColor: Colors.white,
+      style: TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+          fontWeight: FontWeight.w300,
+          decoration: TextDecoration.none),
+    ),
+  );
+}
+
+Widget _title() {
+  return const Padding(
+    padding: EdgeInsets.only(bottom: 8),
+    child: Text(
+      'Murmansk Oblast, RU',
+      style: TextStyle(
+          fontSize: 30, color: Colors.white, fontWeight: FontWeight.w300),
+    ),
+  );
+}
+
+Widget _subtitle() {
+  return const Padding(
+    padding: EdgeInsets.only(bottom: 30),
+    child: Text(
+      'Friday, Mar 20, 2020',
+      style: TextStyle(
+          fontSize: 20, color: Colors.white, fontWeight: FontWeight.w300),
+    ),
+  );
+}
+
+Widget _temperature() {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 30),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Image.network(
-            'https://img4.goodfon.ru/original/800x480/e/c5/priroda-oblaka-solnyshko-iasnaia-pogoda.jpg'),
-        SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(children: [
-              _title(),
-              const Divider(),
-              _temperature(),
-              const Divider(),
-              _temperatureForecast(),
-              const Divider(),
-              _footer(),
-            ]),
-          ),
+        const Icon(Icons.sunny, size: 60, color: Colors.white),
+        const SizedBox(width: 16),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Text(
+              '14 °F',
+              style: TextStyle(
+                  fontSize: 43,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w200),
+            ),
+            Text(
+              'LIGHT SHOW',
+              style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w300),
+            )
+          ],
         )
       ],
     ),
   );
 }
 
-Widget _title() {
-  return Column(
-    children: const [
-      Text(
-        'Tuesday - May 22',
-        style: TextStyle(fontSize: 30),
-      ),
-      Divider(),
-      Text(
-        'lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pulvinar purus nec nulla condimentum egestas eu sed nulla. Fusce ut suscipit sem',
-        textAlign: TextAlign.center,
-      )
-    ],
-  );
-}
-
-Widget _temperature() {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      const Icon(Icons.wb_sunny, color: Colors.yellow),
-      const SizedBox(width: 20),
-      Column(
-        children: const [
-          Text(
-            '15°C clear',
-            style: TextStyle(color: Colors.purple),
+Widget _moreInfo() {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 30),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Icon(Icons.ac_unit, size: 30, color: Colors.white),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              '5',
+              style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w300),
+            ),
+            Text(
+              'km/hr',
+              style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w300),
+            ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 50, right: 50),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Icon(Icons.ac_unit, size: 30, color: Colors.white),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                '3',
+                style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w300),
+              ),
+              Text(
+                '%',
+                style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w300),
+              ),
+            ],
           ),
-          Text(
-            'Murmanskya oblast, Murmansk',
-            style: TextStyle(color: Colors.grey),
-          )
-        ],
-      )
-    ],
-  );
-}
-
-Widget _temperatureForecast() {
-  return Wrap(
-    spacing: 10.0,
-    children: List.generate(
-      8,
-      (index) => Chip(
-        avatar: Icon(
-          Icons.wb_cloudy,
-          color: Colors.blue.shade300,
         ),
-        label: Text('${20 + index} °C'),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-          side: const BorderSide(color: Colors.grey),
-        ),
-        backgroundColor: Colors.grey.shade100,
-      ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Icon(Icons.ac_unit, size: 30, color: Colors.white),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              '20',
+              style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w300),
+            ),
+            Text(
+              '%',
+              style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w300),
+            ),
+          ],
+        )
+      ],
     ),
   );
 }
 
-Widget _footer() {
-  Widget stars = Row(children: const [
-    Icon(Icons.star, size: 15.0, color: Colors.yellow),
-    Icon(Icons.star, size: 15.0, color: Colors.yellow),
-    Icon(Icons.star, size: 15.0, color: Colors.yellow),
-    Icon(Icons.star, size: 15.0, color: Colors.black38),
-    Icon(Icons.star, size: 15.0, color: Colors.black38),
-  ]);
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    children: [const Text('Info with openweathermap.com'), stars],
+Widget _weatherForecast() {
+  final List<Map> data = [
+    {"day": "Monday", "degrees": "6"},
+    {"day": "Tuesday", "degrees": "5"},
+    {"day": "Wednesday", "degrees": "7"},
+    {"day": "Thursday", "degrees": "20"},
+    {"day": "Friday", "degrees": "10"},
+    {"day": "Saturday", "degrees": "8"},
+    {"day": "Sunday", "degrees": "9"},
+  ];
+
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      const Padding(
+        padding: EdgeInsets.only(bottom: 10),
+        child: Text(
+          '7-DAY WEATHER FORECAST',
+          style: TextStyle(
+              fontSize: 20, color: Colors.white, fontWeight: FontWeight.w300),
+        ),
+      ),
+      SizedBox(
+        height: 100,
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemExtent: 150,
+          scrollDirection: Axis.horizontal,
+          itemCount: data.length,
+          itemBuilder: (context, index) => Card(
+            color: Colors.white.withOpacity(0.5),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(0.0)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  '${data[index]["day"]}',
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w300),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '${data[index]["degrees"]}°F',
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                          fontWeight: FontWeight.w300),
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    const Icon(Icons.wb_sunny, color: Colors.white, size: 40)
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+      )
+    ],
   );
 }
